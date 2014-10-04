@@ -1,0 +1,5 @@
+package com.calhacks.alarmproject;
+
+public class AddAlarmFragment extends DialogFragment{
+	
+}
