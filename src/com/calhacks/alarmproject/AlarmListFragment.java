@@ -1,14 +1,17 @@
 package com.calhacks.alarmproject;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.calhacks.alarmproject.dummy.DummyContent;
 
@@ -22,7 +25,7 @@ import com.calhacks.alarmproject.dummy.DummyContent;
  * interface.
  */
 public class AlarmListFragment extends ListFragment {
-	
+	static AlarmAdapter AA;
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
 	 * activated item position. Only used on tablets.
@@ -74,9 +77,12 @@ public class AlarmListFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 
 		// TODO: replace with a real list adapter.
-		setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
+		AA=new AlarmAdapter(getActivity(),AlarmListActivity.allAlarms);
+		setListAdapter(AA);
+		AA.notifyDataSetChanged();
+		/*setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
 				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, DummyContent.ITEMS));
+				android.R.id.text1, DummyContent.ITEMS));*/
 	}
 
 	@Override
@@ -153,11 +159,56 @@ public class AlarmListFragment extends ListFragment {
 	}
 }
 
+
 class AlarmAdapter extends BaseAdapter{
-	LayoutInflater inflater;
+	static LayoutInflater inflater;
+	Context context;
+	static ArrayList<Alarm> allAlarms;
+
+	public AlarmAdapter(Context context, ArrayList<Alarm> data) {
+		// TODO Auto-generated constructor stub
+		this.context = context;
+		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		allAlarms=data;
+	}
+
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		View vi = inflater.inflate(R.layout.individual_plusminus, null);
+		View v = inflater.inflate(R.layout.individual_alarm, null);
+		TextView time = (TextView) v.findViewById(R.id.time);
+		Alarm a = allAlarms.get(position);
+		int tempDays = (a.hour<13) ? a.hour:a.hour-12;
+		String tempMin = (a.min%10==a.min) ? "0"+a.min:""+a.min;
+		time.setText(tempDays+":"+tempMin);
+		
+		TextView amPm = (TextView) v.findViewById(R.id.amPm);
+		amPm.setText((a.hour<13) ? "AM":"PM");
+		
+		TextView days = (TextView) v.findViewById(R.id.days);
+		String[] dow = {"S","M","T","W","Th","F","S"};
+		String allDays="";
+		for(int i=0;i<7;i++){
+			if(a.checked[i])
+				allDays+=dow[i];
+		}
+		days.setText(allDays);
+		return v;
+	}
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return allAlarms.size();
+	}
+	@Override
+	public Object getItem(int index) {
+		// TODO Auto-generated method stub
+		return allAlarms.get(index);
+	}
+	@Override
+	public long getItemId(int index) {
+		// TODO Auto-generated method stub
+		return index;
 	}
 }
+

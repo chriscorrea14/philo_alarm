@@ -1,5 +1,8 @@
 package com.calhacks.alarmproject;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -23,13 +26,18 @@ import android.view.MenuItem;
  */
 public class AlarmListActivity extends FragmentActivity implements
 		AlarmListFragment.Callbacks {
-
+	
+	static ArrayList<Alarm> allAlarms = new ArrayList<Alarm>();
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
 	 * device.
 	 */
 	private boolean mTwoPane;
-
+	
+	public static void addAlarm(int hour,int min,boolean[] checked){
+	   
+	   
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,7 +55,10 @@ public class AlarmListActivity extends FragmentActivity implements
 			((AlarmListFragment) getSupportFragmentManager().findFragmentById(
 					R.id.alarm_list)).setActivateOnItemClick(true);
 		}
-
+		boolean[] trues={true,true,true,true,true,true,true};
+		allAlarms.add(new Alarm(7,15,trues));
+		allAlarms.add(new Alarm(8,15,trues));
+		allAlarms.add(new Alarm(9,15,trues));
 		// TODO: If exposing deep links into your app, handle intents here.
 	}
 
@@ -92,5 +103,17 @@ public class AlarmListActivity extends FragmentActivity implements
 				break;
 		}
 		return true;
+	}
+}
+class Alarm implements Serializable{
+	int hour=0;
+	int min=0;
+	boolean[] checked;
+	boolean isOn=true;
+
+	public Alarm(int hour, int min, boolean[] checked){
+		this.hour=hour;
+		this.min=min;
+		this.checked=checked;
 	}
 }

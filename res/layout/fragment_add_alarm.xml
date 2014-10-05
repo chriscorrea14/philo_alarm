@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -9,4 +9,61 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"/>
-</LinearLayout>
+	<LinearLayout
+	    android:id="@+id/days"
+	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+	    android:layout_below="@id/time"
+	    android:orientation="horizontal"
+	    android:paddingBottom="15sp">
+	    <ToggleButton 
+		    android:id="@+id/Sunday"
+		    android:layout_width="0px"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:textOn="S"
+		    android:textOff="S"/>
+	    <ToggleButton 
+		    android:id="@+id/Monday"
+		    android:layout_width="0px"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:textOn="M"
+		    android:textOff="M"/>
+	    <ToggleButton 
+		    android:id="@+id/Tuesday"
+		    android:layout_width="0px"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:textOn="T"
+		    android:textOff="T"/>
+	    <ToggleButton 
+		    android:id="@+id/Wednesday"
+		    android:layout_width="0px"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:textOn="W"
+		    android:textOff="W"/>
+	    <ToggleButton 
+		    android:id="@+id/Thursday"
+		    android:layout_width="0px"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:textOn="Th"
+		    android:textOff="Th"/>
+	    <ToggleButton 
+		    android:id="@+id/Friday"
+		    android:layout_width="0px"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:textOn="F"
+		    android:textOff="F"/>
+	    <ToggleButton 
+		    android:id="@+id/Saturday"
+		    android:layout_width="0px"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:textOn="S"
+		    android:textOff="S"/>
+	</LinearLayout>
+</RelativeLayout>
